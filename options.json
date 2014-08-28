@@ -1,0 +1,12 @@
+{
+	"grunt": true,
+	"output": "/var/www",
+	"ignore": [
+		"adminer.php",
+		"projects",
+		"public",
+		"_h5ai",
+		".htaccess"
+	],
+	"url": "http://pi.dvbris.com"
+}

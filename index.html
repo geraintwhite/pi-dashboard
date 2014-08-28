@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>Raspberry Pi Web Server</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <style type="text/css">
+            body { font-family: sans-serif; }
+            h1 { color: #555; }
+            #wrapper { margin: 50px 0; }
+            a { color: #777; text-decoration: none; }
+            a:hover { text-decoration: underline; }
+            #sysinfo { float: right; }
+        </style>
+    </head>
+    <body>
+        <h1>Raspberry Pi Web Server</h1>
+        <div id="sysinfo"><h3>System Info</h3><pre></pre></div>
+        <h2>Welcome</h2>
+        <div id="wrapper">
+            <p>This website is hosted on a <a href="http://raspberrypi.org" target="_blank">Raspberry Pi</a>.</p>
+            <p>You may find some interesting things here, such as <a href="/projects">projects</a> by <a href="http://dvbris.com" target="_blank">Dvbris Web Design</a> and a <a href="/public">public</a> file share.</p>
+        </div>
+        <h3>Contact the webmaster <a href="http://geraintwhite.co.uk" target="_blank">Geraint White</a> - <a href="mailto:mail@geraintwhite.co.uk" target="_blank">mail@geraintwhite.co.uk</a></h3>
+        <script>
+            setInterval(function() { $('#sysinfo pre').load('http://node.dvbris.com/sysinfo'); }, 1000);
+        </script>
+    </body>
+</html>
