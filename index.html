@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 
 <html>
     <head>
@@ -15,7 +15,7 @@
     </head>
     <body>
         <h1>Raspberry Pi Web Server</h1>
-        <div id="sysinfo"><h3>System Info</h3><pre></pre></div>
+        <div id="sysinfo"><h3>System Info</h3><pre></pre><a href="sysinfo.html">System Info Graphs</a></div>
         <h2>Welcome</h2>
         <div id="wrapper">
             <p>This website is hosted on a <a href="http://raspberrypi.org" target="_blank">Raspberry Pi</a>.</p>
@@ -23,7 +23,11 @@
         </div>
         <h3>Contact the webmaster <a href="http://geraintwhite.co.uk" target="_blank">Geraint White</a> - <a href="mailto:mail@geraintwhite.co.uk" target="_blank">mail@geraintwhite.co.uk</a></h3>
         <script>
-            setInterval(function() { $('#sysinfo pre').load('http://node.dvbris.com/sysinfo'); }, 1000);
+            function sysinfo() {
+                $('#sysinfo pre').load('http://node.dvbris.com/sysinfo');
+                setTimeout(sysinfo, 1000);
+            }
+            sysinfo();
         </script>
     </body>
 </html>

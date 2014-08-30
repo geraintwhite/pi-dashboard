@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Raspberry Pi System Info</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <style type="text/css">
+            body { font-family: sans-serif; }
+            .graph { display: inline-block; }
+        </style>
+    </head>
+    <body>
+        <div id="sysinfo">
+            <h3>System Info</h3>
+            <pre></pre>
+            <div id="cpu_graph" class="graph"></div>
+            <div id="mem_graph" class="graph"></div>
+            <div id="temp_graph" class="graph"></div>
+        </div>
+        <script>
+            function sysinfo() {
+                $('#sysinfo pre').load('http://node.dvbris.com/sysinfo');
+                setTimeout(sysinfo, 1000);
+            }
+            sysinfo();
+
+            google.load('visualization', '1.0', {'packages':['corechart']});
+            google.setOnLoadCallback(function() {
+                $.getJSON('http://node.dvbris.com/sysinfo?graph', function(data) {
+                    var options = {
+                        cpu: {
+                            col: 'CPU Level',
+                            title: 'CPU Usage',
+                            id: 'cpu_graph'
+                        },
+                        mem: {
+                            col: 'Memory Used',
+                            title: 'Memory Usage',
+                            id: 'mem_graph'
+                        },
+                        temp: {
+                            col: 'Temperature',
+                            title: 'System Temperature',
+                            id: 'temp_graph'
+                        }
+                    }
+
+                    for (key in data) {
+                        for (i in data[key]) {
+                            data[key][i][0] = new Date(data[key][i][0]);
+                        }
+
+                        var table = new google.visualization.DataTable();
+                        table.addColumn('datetime', 'Date');
+                        table.addColumn('number', options[key].col);
+                        table.addRows(data[key]);
+    
+                        var chart = new google.visualization.LineChart(document.getElementById(options[key].id));
+                        chart.draw(table, {
+                            'title': options[key].title,
+                            'width': 400,
+                            'height': 300
+                        });
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
