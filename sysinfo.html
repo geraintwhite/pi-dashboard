@@ -31,19 +31,19 @@
                 $.getJSON('http://node.dvbris.com/sysinfo?graph', function(data) {
                     var options = {
                         cpu: {
-                            col: 'CPU Level',
+                            col: 'CPU Level (%)',
                             title: 'CPU Usage',
                             id: 'cpu_graph',
                             view: '{"viewWindow": {"min": 0, "max": 100}}'
                         },
                         mem: {
-                            col: 'Memory Used',
+                            col: 'Memory Used (MB)',
                             title: 'Memory Usage',
                             id: 'mem_graph',
                             view: '{"viewWindow": {"min": 0, "max": 256}}'
                         },
                         temp: {
-                            col: 'Temperature',
+                            col: 'Temp (C)',
                             title: 'System Temperature',
                             id: 'temp_graph',
                             view: '{"viewWindow": {"min": 0, "max": 80}}'
