@@ -33,17 +33,20 @@
                         cpu: {
                             col: 'CPU Level',
                             title: 'CPU Usage',
-                            id: 'cpu_graph'
+                            id: 'cpu_graph',
+                            view: '{"viewWindow": {"min": 0, "max": 100}}'
                         },
                         mem: {
                             col: 'Memory Used',
                             title: 'Memory Usage',
-                            id: 'mem_graph'
+                            id: 'mem_graph',
+                            view: '{"viewWindow": {"min": 0, "max": 256}}'
                         },
                         temp: {
                             col: 'Temperature',
                             title: 'System Temperature',
-                            id: 'temp_graph'
+                            id: 'temp_graph',
+                            view: '{}'
                         }
                     }
 
@@ -59,9 +62,10 @@
     
                         var chart = new google.visualization.LineChart(document.getElementById(options[key].id));
                         chart.draw(table, {
-                            'title': options[key].title,
-                            'width': 400,
-                            'height': 300
+                            title: options[key].title,
+                            width: 400,
+                            height: 300,
+                            vAxis: JSON.parse(options[key].view)
                         });
                     }
                 });
