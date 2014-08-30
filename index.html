@@ -24,8 +24,9 @@
         <h3>Contact the webmaster <a href="http://geraintwhite.co.uk" target="_blank">Geraint White</a> - <a href="mailto:mail@geraintwhite.co.uk" target="_blank">mail@geraintwhite.co.uk</a></h3>
         <script>
             function sysinfo() {
-                $('#sysinfo pre').load('http://node.dvbris.com/sysinfo');
-                setTimeout(sysinfo, 1000);
+                $('#sysinfo pre').load('http://node.dvbris.com/sysinfo', function() {
+                    setTimeout(sysinfo, 2000);
+                });
             }
             sysinfo();
         </script>

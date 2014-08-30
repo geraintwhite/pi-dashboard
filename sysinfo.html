@@ -20,8 +20,9 @@
         </div>
         <script>
             function sysinfo() {
-                $('#sysinfo pre').load('http://node.dvbris.com/sysinfo');
-                setTimeout(sysinfo, 1000);
+                $('#sysinfo pre').load('http://node.dvbris.com/sysinfo', function() {
+                    setTimeout(sysinfo, 2000);
+                });
             }
             sysinfo();
 
