@@ -20,7 +20,7 @@
         </div>
         <script>
             function sysinfo() {
-                $('#sysinfo pre').load('http://node.dvbris.com/sysinfo', function() {
+                $('#sysinfo pre').load('https://node.dvbris.com/sysinfo', function() {
                     setTimeout(sysinfo, 2000);
                 });
             }
@@ -28,7 +28,7 @@
 
             google.load('visualization', '1.0', {'packages':['corechart']});
             google.setOnLoadCallback(function() {
-                $.getJSON('http://node.dvbris.com/sysinfo?graph', function(data) {
+                $.getJSON('https://node.dvbris.com/sysinfo?graph', function(data) {
                     var options = {
                         cpu: {
                             col: 'CPU Level (%)',
