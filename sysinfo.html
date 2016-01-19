@@ -26,8 +26,7 @@
             }
             sysinfo();
 
-            google.load('visualization', '1.0', {'packages':['corechart']});
-            google.setOnLoadCallback(function() {
+            function graphs() {
                 $.getJSON('https://node.dvbris.com/sysinfo?graph', function(data) {
                     var options = {
                         cpu: {
@@ -67,8 +66,15 @@
                             height: 300,
                             vAxis: JSON.parse(options[key].view)
                         });
+                        
+                        setTimeout(graphs, 60000);
                     }
                 });
+            }
+
+            google.load('visualization', '1.0', {'packages':['corechart']});
+            google.setOnLoadCallback(function() {
+                graphs();
             });
         </script>
     </body>
