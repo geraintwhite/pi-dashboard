@@ -19,62 +19,66 @@
             <div id="temp_graph" class="graph"></div>
         </div>
         <script>
+            var graphs = {
+                cpu: {
+                    col: 'CPU Level (%)',
+                    title: 'CPU Usage',
+                    id: 'cpu_graph',
+                    view: '{"viewWindow": {"min": 0, "max": 100}}'
+                },
+                mem: {
+                    col: 'Memory Used (MB)',
+                    title: 'Memory Usage',
+                    id: 'mem_graph',
+                    view: '{"viewWindow": {"min": 0, "max": 1024}}'
+                },
+                temp: {
+                    col: 'Temp (C)',
+                    title: 'System Temperature',
+                    id: 'temp_graph',
+                    view: '{"viewWindow": {"min": 0, "max": 80}}'
+                }
+            };
+
             function sysinfo() {
                 $('#sysinfo pre').load('https://node.dvbris.com/sysinfo', function() {
                     setTimeout(sysinfo, 2000);
                 });
             }
-            sysinfo();
 
-            function graphs() {
+            function draw_graphs() {
                 $.getJSON('https://node.dvbris.com/sysinfo?graph', function(data) {
-                    var options = {
-                        cpu: {
-                            col: 'CPU Level (%)',
-                            title: 'CPU Usage',
-                            id: 'cpu_graph',
-                            view: '{"viewWindow": {"min": 0, "max": 100}}'
-                        },
-                        mem: {
-                            col: 'Memory Used (MB)',
-                            title: 'Memory Usage',
-                            id: 'mem_graph',
-                            view: '{"viewWindow": {"min": 0, "max": 1024}}'
-                        },
-                        temp: {
-                            col: 'Temp (C)',
-                            title: 'System Temperature',
-                            id: 'temp_graph',
-                            view: '{"viewWindow": {"min": 0, "max": 80}}'
-                        }
-                    }
-
-                    for (key in data) {
-                        for (i in data[key]) {
+                    for (var key in graphs) {
+                        for (var i in data[key]) {
                             data[key][i][0] = new Date(data[key][i][0]);
                         }
 
                         var table = new google.visualization.DataTable();
                         table.addColumn('datetime', 'Date');
-                        table.addColumn('number', options[key].col);
+                        table.addColumn('number', graphs[key].col);
                         table.addRows(data[key]);
-    
-                        var chart = new google.visualization.LineChart(document.getElementById(options[key].id));
-                        chart.draw(table, {
-                            title: options[key].title,
+
+                        graphs[key].chart.draw(table, {
+                            title: graphs[key].title,
                             width: 400,
                             height: 300,
-                            vAxis: JSON.parse(options[key].view)
+                            vAxis: JSON.parse(graphs[key].view)
                         });
-                        
-                        setTimeout(graphs, 60000);
                     }
+
+                    setTimeout(draw_graphs, 60000);
                 });
             }
 
+            sysinfo();
+
             google.load('visualization', '1.0', {'packages':['corechart']});
             google.setOnLoadCallback(function() {
-                graphs();
+                for (var key in graphs) {
+                    var elm = document.getElementById(graphs[key].id);
+                    graphs[key].chart = new google.visualization.LineChart(elm);
+                }
+                draw_graphs();
             });
         </script>
     </body>
